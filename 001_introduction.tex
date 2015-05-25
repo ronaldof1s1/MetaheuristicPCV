@@ -1,0 +1,14 @@
+O Problema do Caixeiro Viajante (PCV) não possui data definida, mas estima-se que no século XIX já se falava dele, apesar de ter sido realmente estudado no século XX em Harvard e Viena \cite{PCVWikipedia}. Entretanto o problema, com esse nome, ficou mundialmente conhecido em 1950 \cite{Applegate}. PCV é um problema que visa encontrar o menor caminho com certas características, num conjunto de cidades e estradas que ligam essas cidades. As características são:
+
+	\begin{enumerate}
+		\item Deve passar por todas as cidades exatamente uma vez. Nem mais, nem menos.
+        \item Deve começar de uma cidade, digamos, v0 e voltar à mesma cidade no final.
+	\end{enumerate}
+    
+    Assim, temos que o problema pode ser traduzido para: encontrar o menor ciclo hamiltoniano em um grafo.
+    
+    O Problema do Caixeiro Viajante pode parecer bastante simples à primeira vista, já que é um problema que se assemelha a muitos problemas do mundo real. Entretanto esse, ao ser implementado, percebe-se a complexidade enorme de encontrar tal ciclo.
+    
+     Esse problema pode ser definido, formalmente como: Dado um grafo $G = (V,E)$, onde $V$ é o conjunto de vértices e $E$ o conjunto de arestas, encontrar a permutação de vértices que forme um circuito hamiltoniano e minimize seu custo.
+    
+    Em 1972, Richard Karp demonstrou que o problema do ciclo hamiltoniano é da classe NP-Completo\cite{karp1972}. Sendo assim, seu equivalente em otimização, o Caixeiro Viajante, é um problema NP-Difícil.
