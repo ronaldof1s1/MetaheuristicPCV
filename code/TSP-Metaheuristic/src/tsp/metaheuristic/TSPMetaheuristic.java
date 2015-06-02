@@ -16,6 +16,8 @@ public class TSPMetaheuristic {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        FileReader fr = new FileReader("test.tsp");
+        
     }
     
 }
