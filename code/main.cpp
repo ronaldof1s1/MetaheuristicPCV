@@ -3,7 +3,7 @@
 
 using namespace std;
 
-typedef graph vector< vector<int>* >
+typedef graph vector< vector< int >* >
 
 int main()
 {
