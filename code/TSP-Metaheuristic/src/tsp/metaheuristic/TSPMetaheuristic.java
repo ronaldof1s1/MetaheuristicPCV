@@ -20,10 +20,13 @@ public class TSPMetaheuristic
    */
   public static void main(String[] args) throws IOException
   {
-    // TODO code application logic here
-    MyFileReader fr = new MyFileReader();
+    MyFileReader fr;
+    Printer P;
+    P = new Printer();
+    fr = new MyFileReader();
     Integer[][] graph;
     graph = fr.readFile("test/test.tsp");
+    P.printGraph(graph);
   }
 
 }
