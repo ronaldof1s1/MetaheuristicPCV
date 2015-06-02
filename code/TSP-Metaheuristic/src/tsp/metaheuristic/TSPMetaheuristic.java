@@ -11,19 +11,19 @@ import java.io.IOException;
  *
  * @author ronaldofs
  */
-public class TSPMetaheuristic {
+public class TSPMetaheuristic
+{
 
-    /**
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     */
-    public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-        MyFileReader fr = new MyFileReader();
-        Integer[][] readFile;
-        //readFile = fr.readFile("/home/ronaldofs/Documents/UFRN/2015.1/Trabalhos/PAA/Meta-heuristicas/code/TSP-Metaheuristic/build/classes/tsp/metaheuristic/test/test.tsp");
-        //System.out.println(System.getProperty("user.dir"));
-        readFile = fr.readFile("test/test.tsp");
-    }
-    
+  /**
+   * @param args the command line arguments
+   * @throws java.io.IOException
+   */
+  public static void main(String[] args) throws IOException
+  {
+    // TODO code application logic here
+    MyFileReader fr = new MyFileReader();
+    Integer[][] graph;
+    graph = fr.readFile("test/test.tsp");
+  }
+
 }
