@@ -5,6 +5,7 @@
  */
 package tsp.metaheuristic;
 import java.io.*;
+import java.util.Scanner;
 
 
 
@@ -12,11 +13,10 @@ import java.io.*;
 public class MyFileReader {
     
     Integer[][] readFile(String path) throws FileNotFoundException, IOException{
-        BufferedReader bf;
+       //  BufferedReader bf;
         File f;
         f = new File(path);
-        FileReader fr = new FileReader(f);
-        bf = new BufferedReader(fr);
+        Scanner bf = new Scanner(f);
         String line;
         line = "";
         String[] words;
@@ -27,10 +27,10 @@ public class MyFileReader {
         xCoord = new Integer[0];
         yCoord = new Integer[0];
         graph = new Integer[0][0];
-       // distances = new Integer[0];
+        Integer node;
         
-        while(bf.ready()){
-            line = bf.readLine();
+        while(bf.hasNext()){
+            line = bf.nextLine();
             if("EOF".equals(line)){
                 break;
             }
@@ -45,11 +45,13 @@ public class MyFileReader {
                     yCoord = new Integer[size];
                     break;
                 case "NODE_COORD_SECTION":
-                    while(bf.ready()){
-                        line = bf.readLine();
-                        words = line.split("\\s+");
-                        xCoord[Integer.parseInt(words[0])] = Integer.parseInt(words[1]);
-                        yCoord[Integer.parseInt(words[0])] = Integer.parseInt(words[2]);
+                    while(bf.hasNextInt()){
+                        //if(bf.nextLine().equals("EOF")) {break;};
+                        node = bf.nextInt();
+                        
+                        // node = Integer.parseInt(words[0]);
+                        xCoord[node-1] = bf.nextInt();
+                        yCoord[node-1] = bf.nextInt();
                     }
                 break;
             }
@@ -78,8 +80,14 @@ public class MyFileReader {
     }
     
     int distance(Integer x1, Integer y1, Integer x2, Integer y2){
-        Double dist;
-        dist = Math.sqrt( Math.pow(x1-x2, 2) + Math.pow(x1-x2, 2) ) ;
+        double dist = 0;
+        System.out.println(x1); 
+        System.out.println(y1); 
+        System.out.println(x2); 
+        System.out.println(y2); 
+         dist = Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) ;
+        //System.out.println(dist);
+        dist = Math.sqrt( dist ) ;
         return nint( dist );
     }
     

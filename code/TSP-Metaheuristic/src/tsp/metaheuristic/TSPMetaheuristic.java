@@ -21,8 +21,8 @@ public class TSPMetaheuristic {
         // TODO code application logic here
         MyFileReader fr = new MyFileReader();
         Integer[][] readFile;
-        readFile = fr.readFile("test.tsp");
-        
+        readFile = fr.readFile("/home/ronaldofs/Documents/UFRN/2015.1/Trabalhos/PAA/Meta-heuristicas/code/TSP-Metaheuristic/build/classes/tsp/metaheuristic/test/test.tsp");
+        //readFile = fr.readFile("tsp/metaheuristic/test/test.tsp");
     }
     
 }
