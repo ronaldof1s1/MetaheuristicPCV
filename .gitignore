@@ -3,3 +3,4 @@
 *.blg
 *.log
 *.dvi
+/code/TSP-Metaheuristic/nbproject/private/
