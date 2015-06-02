@@ -81,10 +81,10 @@ public class MyFileReader {
     
     int distance(Integer x1, Integer y1, Integer x2, Integer y2){
         double dist = 0;
-        System.out.println(x1); 
+        /*System.out.println(x1); 
         System.out.println(y1); 
         System.out.println(x2); 
-        System.out.println(y2); 
+        System.out.println(y2);*/ 
          dist = Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) ;
         //System.out.println(dist);
         dist = Math.sqrt( dist ) ;
