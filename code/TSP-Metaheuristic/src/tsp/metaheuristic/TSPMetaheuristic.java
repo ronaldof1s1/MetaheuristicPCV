@@ -5,6 +5,8 @@
  */
 package tsp.metaheuristic;
 
+import java.io.IOException;
+
 /**
  *
  * @author ronaldofs
@@ -13,10 +15,13 @@ public class TSPMetaheuristic {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        FileReader fr = new FileReader("test.tsp");
+        MyFileReader fr = new MyFileReader();
+        Integer[][] readFile;
+        readFile = fr.readFile("test.tsp");
         
     }
     

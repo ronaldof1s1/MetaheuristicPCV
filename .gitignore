@@ -4,3 +4,4 @@
 *.log
 *.dvi
 /code/TSP-Metaheuristic/nbproject/private/
+/code/TSP-Metaheuristic/build/
