@@ -19,7 +19,7 @@ public class Printer
       
       for(int j = 0; j < graph.length; j++)
       {
-        System.out.print(graph[i][j] + " ");
+        System.out.print(graph[i][j] + "\t");
       }
       System.out.println("");
         

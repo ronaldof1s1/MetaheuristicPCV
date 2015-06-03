@@ -24,9 +24,13 @@ public class TSPMetaheuristic
     Printer P;
     P = new Printer();
     fr = new MyFileReader();
+    TSP tsp = new TSP();
     Integer[][] graph;
     graph = fr.readFile("test/test.tsp");
-    P.printGraph(graph);
+    Integer[] initialCycle = tsp.findInitialSolution(graph);
+    // P.printGraph(graph);
+    
+    P.printCycle(initialCycle);
   }
 
 }
