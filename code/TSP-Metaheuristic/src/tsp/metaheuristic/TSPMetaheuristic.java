@@ -30,7 +30,7 @@ public class TSPMetaheuristic
     Integer[] initialCycle = tsp.findInitialSolution(graph);
     // P.printGraph(graph);
     
-    P.printCycle(initialCycle);
+    //P.printCycle(initialCycle);
   }
 
 }
