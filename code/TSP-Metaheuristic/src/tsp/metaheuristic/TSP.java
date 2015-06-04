@@ -5,10 +5,6 @@
  */
 package tsp.metaheuristic;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
-import java.util.Arrays;
-import java.util.Objects;
-
 /**
  *
  * @author ronaldofs
@@ -16,7 +12,7 @@ import java.util.Objects;
 public class TSP
 {
   
-  Integer[] nextNeighboor(Integer[][] graph, Integer start, boolean[] visited)
+  Integer[] nextNeighbor(Integer[][] graph, Integer start, boolean[] visited)
   {
     Integer[] cycle = new Integer[graph.length];
     cycle[0] = start;
@@ -72,7 +68,7 @@ public class TSP
     for(int i = 0; i < graph.length; i++)
     {
       visited = new boolean[graph.length];
-      cycle = nextNeighboor(graph, i,visited);
+      cycle = nextNeighbor(graph, i,visited);
       size = cycleSize(graph, cycle);
       if(size < minSize)
       {
