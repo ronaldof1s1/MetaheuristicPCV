@@ -42,8 +42,8 @@ public class MyFileReader
       {
         switch (words[0])
         {
-          case "DIMENSION:":
-            size = Integer.parseInt(words[1]);
+          case "DIMENSION":
+            size = Integer.parseInt(words[2]);
             graph = new Integer[size][size];
             xCoord = new Integer[size];
             yCoord = new Integer[size];
@@ -93,7 +93,9 @@ public class MyFileReader
      System.out.println(y1); 
      System.out.println(x2); 
      System.out.println(y2);*/
-    dist = Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
+    double xd = x1-x2;
+    double yd = y1-y2;
+    dist = xd*xd + yd*yd;
     //System.out.println(dist);
     dist = Math.sqrt(dist);
     return nint(dist);

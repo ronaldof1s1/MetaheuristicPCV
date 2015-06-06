@@ -13,6 +13,17 @@ import java.util.ArrayList;
  */
 public class Metaheuristic
 {
+  int find(Integer[] list, int member)
+  {
+    for(int i = 0; i < list.length; i++)
+    {
+      if (list[i] == member)
+      {
+        return i;
+      }
+    }
+    return -1;
+  }
   Integer[] reverse(Integer[] list)
   {
     Integer[] temp;
@@ -23,31 +34,47 @@ public class Metaheuristic
     }
     return temp;
   }
-  Integer[] swapNodes(Integer[] list, int index1, int index2)
+  Integer[] swapNodes(Integer[] list, int node1, int node2)
   {
-    int temp = list[index1];
-    list[index1] = list[index2];
-    list[index2] = temp;
-    return list;
+    Printer P = new Printer();
+    
+    //System.out.println(node2);
+    int index1 = find(list, node1);
+    int index2 = find(list, node2);
+    list[index1] = node2;
+    list[index2] = node1;
+    
+    return list.clone();
   }
   
   ArrayList neighborhood(Integer[][] graph, Integer[] solution, ArrayList tabuTable)
   {
     ArrayList<Integer[]> neighborhood;
     neighborhood = new ArrayList<>();
-    
+    Printer P = new Printer();
     Integer[] move, tempSol;
-    move = new Integer[2];
     Integer node = 0;
-    move[0] = node;
-    for(int i = 0; i < solution.length; )
+    boolean cont;
+    for(int i = 1; i < solution.length; i++)
     {
+      move = new Integer[2];
+      move[0] = node;
       move[1] = i;
-      if(!(tabuTable.contains(move) && tabuTable.contains(reverse(move))))
+      cont = tabuTable.contains(move);
+      cont = cont && tabuTable.contains(reverse(move));
+      if(!cont)
       {
-        tempSol = swapNodes(solution, move[1], move[2]);
-        neighborhood.add(tempSol);
-        tabuTable.add(move);
+        tempSol = swapNodes(solution.clone(), move[0], move[1]).clone();
+        //P.printCycle(tempSol);
+      
+        neighborhood.add(tempSol.clone());
+        
+        if(tabuTable.size() >= 5)
+        {
+          tabuTable.remove(0);
+        }
+        tabuTable.add(move.clone());
+        node = i;
       }
     }
     return neighborhood;
@@ -60,35 +87,41 @@ public class Metaheuristic
     return objective;
   }
   
-  void buscaTabu(Integer tableSize, Integer[][] graph, Integer[] solution)
+  Integer[] buscaTabu(Integer tableSize, Integer[][] graph, Integer[] solution)
   {
     ArrayList<Integer[]> table;
     table = new ArrayList<>();
     ArrayList<Integer[]> neighbors1, neighbors2;
-    
+    Printer P = new Printer();
     Integer currObj, minObj;
     
     Integer[] bestSol;
-    bestSol = solution;
-    
+    bestSol = solution.clone();
+    //P.printCycle(bestSol);
     currObj = objective(graph, solution);
     minObj = currObj;
     for(int i = 0; i < solution.length; i++)
-    {
-      neighbors1 = neighborhood(graph, bestSol, table);
+    {      
+      neighbors1 = neighborhood(graph, bestSol.clone(), table);
       for (Integer[] neighbor1 : neighbors1)
       {
-        neighbors2 = neighborhood(graph, neighbor1, table);
+        //P.printCycle(neighbor1);
+        neighbors2 = neighborhood(graph, neighbor1.clone(), table);
         for(Integer[] neighbor2 : neighbors2)
         {
           currObj = objective(graph, neighbor2);
+          //System.out.println(currObj);
+          //P.printCycle(neighbor2);
           if(currObj < minObj)
           {
             minObj = currObj;
-            bestSol = neighbor2;
+            bestSol = neighbor2.clone();
+            //System.out.println(minObj + "min obj");
+            //P.printCycle(bestSol);
           }
         }
       }
     }
+    return bestSol;
   }
 }
