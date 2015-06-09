@@ -45,15 +45,20 @@ public class TSP
   Integer cycleSize(Integer[][] graph, Integer[] cycle)
   {
     Integer size = 0;
+
     Integer x,y;
     for(int i = 0; i < graph.length-1; i++)
     {
       x = cycle[i]; y = cycle[i+1];
       size += graph[x][y];
+      //System.out.println(size);
+     
     }
     x = cycle[graph.length-1];
     y = cycle[0];
     size += graph[x][y];
+    /*System.out.println(size);
+    System.out.println("\n outra \n");*/
     return size;
   }
   
@@ -64,6 +69,7 @@ public class TSP
     minCycle = new Integer[graph.length];
     boolean[] visited;
     minSize = Integer.MAX_VALUE;
+    Printer P = new Printer();
     
     for(int i = 0; i < graph.length; i++)
     {
@@ -74,9 +80,11 @@ public class TSP
       {
         minCycle = cycle;
         minSize = size;
+        //P.printCycle(minCycle);
+        //System.out.println(size);
       }
     }
-    System.out.println(minSize);
+    //System.out.println(minSize);
     return minCycle;
   }
 }
