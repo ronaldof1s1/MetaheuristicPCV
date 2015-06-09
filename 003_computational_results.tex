@@ -1,0 +1,25 @@
+Os testes foram realizados com instâncias retiradas da $TSPLIB$. O algoritmo foi implementado em Java, em uma máquina Intel Core i7-4510U 2.0GHz, com 8GB de RAM. O sistema operacional no quais foram realizados os testes é um Fedora 22 de 64 bits.
+
+A seguinte tabela apresenta a instância executada, o resultado exato da instância ($R_{exato}$), o resultado encontrado apenas com a heurística do vizinho mais próximo ($R_{heur}$), o resultado melhorado pela meta-heurística da busca tabu ($R_{tabu}$), a média do tempo de execução do algoritmo para 30 testes ($Media(T)$), e a variância do tempo ($Var(T)$).
+
+Para os testes, foi assumido tamanho da tabela tabu igual a 5.
+\begin{table}[h]
+	
+	\centering
+	\begin{tabular}{|l|l|l|l|l|l|}
+		\hline
+		\textbf{instância} & $R_{exato}$ & $R_{heur}$ & $R_{tabu}$ & $Media(T)(ms)$ & $Var(T)$\\ 
+		\hline
+		eil51	& 460 		& 816 		& 718 	& 164.96	& 70.21			\\ \hline
+		a280 	& 2579 		& 4638 		& 3343 	& 62910.30 	& 1540674.42	\\ \hline
+		bier127 & 118282 	& 230110	& 220241& 2933.22	& 8177.80		\\ \hline 			
+		eil76 	& 583 		& 1064 		& 1021 	& 506.19 	& 300.93		\\ \hline
+		eil101 	& 629		& 1607 		& 1385 	& 1271.76	& 5464.36		\\ \hline
+		gil262 	& 2378 		& 7411 		& 7212 	& 45364.02	& 5675037.82	\\ \hline
+		kroA200 & 29368 	& 101065	& 98633	& 22620.81	& 4819397.50	\\ \hline
+		lin105 	& 14379 	& 28752 	& 26115	& 1477.28	& 40056.62		\\ 
+		\hline
+		
+	\end{tabular}
+	\caption{Resultados Computacionais}
+\end{table}
