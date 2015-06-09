@@ -1,0 +1,12 @@
+\subsection{Meta-heurísticas e busca tabu}
+Uma meta-heurística, é uma forma heurística de resolução de problemas genéricos de otimização\cite{metaheuristicas2009}. Isto é, a meta-heurística é uma espécie de framework que pode ser utilizado para resolver diversos problemas considerados difíceis (problemas NP-árduos como o PCV supracitados são exemplos).
+
+A meta-heurística se diferencia da heurística no que se diz respeito a utilização. A primeira é utilizada de modo geral, em diversos tipos de problemas de otimização, enquanto a segunda é específica para um problema. Como exemplos temos a meta-heurística Simulated Annealing e a heurística da inserção da aresta mínima (Problema do Caixeiro Viajante).
+
+A meta-heurística escolhida para o presente trabalho foi a busca tabu.Essa funciona da maneira que segue:
+
+Uma solução heurística para o problema é encontrada e, sobre esta, aplicamos as operações de vizinhança, como em uma busca local. Entretanto, a busca tabu utiliza de um artifício para não causar um grande número de repetições nas soluções vizinhas encontradas (o que acontece com a busca local).
+
+Esse artifício é a utilização de uma tabela, ou uma lista tabu, na qual são armazenados os movimentos já realizados recentemente, os quais serão "proibidos" de se repetirem. Assim, causamos uma diversificação e uma intensificação maior nos resultados.
+
+\subsection{A busca tabu aplicada ao PCV}
