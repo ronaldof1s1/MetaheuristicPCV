@@ -42,13 +42,19 @@ public class TSPMetaheuristic
     Integer[] tabuSol;
     Integer[][] graph;
     graph = fr.readFile("test/test.tsp");
+    long start = System.nanoTime();
     Integer[] initialCycle = tsp.findInitialSolution(graph);
+    tabuSol = M.buscaTabu(5, graph, initialCycle.clone());
+    long end = System.nanoTime();
+    double time = end - start;
+    time /= 1000000;
     //P.printGraph(graph);
-    tabuSol = M.buscaTabu(10, graph, initialCycle.clone());
-    P.printCycle(initialCycle);
-     System.out.println(tsp.cycleSize(graph, initialCycle));
-    P.printCycle(tabuSol);
-    System.out.println(tsp.cycleSize(graph, tabuSol));
+    
+    //P.printCycle(initialCycle);
+    System.out.println("size1: "+tsp.cycleSize(graph, initialCycle));
+    //P.printCycle(tabuSol);
+    System.out.println("size: "+ tsp.cycleSize(graph, tabuSol));
+    System.out.println("time: " + time);
 
   }
 

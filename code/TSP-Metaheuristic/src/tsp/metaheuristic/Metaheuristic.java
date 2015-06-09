@@ -47,7 +47,7 @@ public class Metaheuristic
     return list.clone();
   }
   
-  ArrayList neighborhood(Integer[][] graph, Integer[] solution, ArrayList tabuTable)
+  ArrayList neighborhood(Integer[][] graph, Integer[] solution, ArrayList tabuTable, int tableSize)
   {
     ArrayList<Integer[]> neighborhood;
     neighborhood = new ArrayList<>();
@@ -69,7 +69,7 @@ public class Metaheuristic
       
         neighborhood.add(tempSol.clone());
         
-        if(tabuTable.size() >= 5)
+        if(tabuTable.size() >= tableSize)
         {
           tabuTable.remove(0);
         }
@@ -102,11 +102,11 @@ public class Metaheuristic
     minObj = currObj;
     for(int i = 0; i < solution.length; i++)
     {      
-      neighbors1 = neighborhood(graph, bestSol.clone(), table);
+      neighbors1 = neighborhood(graph, bestSol.clone(), table, tableSize);
       for (Integer[] neighbor1 : neighbors1)
       {
         //P.printCycle(neighbor1);
-        neighbors2 = neighborhood(graph, neighbor1.clone(), table);
+        neighbors2 = neighborhood(graph, neighbor1.clone(), table, tableSize);
         for(Integer[] neighbor2 : neighbors2)
         {
           currObj = objective(graph, neighbor2);
