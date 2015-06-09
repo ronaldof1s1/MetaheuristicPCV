@@ -10,3 +10,14 @@ Uma solução heurística para o problema é encontrada e, sobre esta, aplicamos
 Esse artifício é a utilização de uma tabela, ou uma lista tabu, na qual são armazenados os movimentos já realizados recentemente, os quais serão "proibidos" de se repetirem. Assim, causamos uma diversificação e uma intensificação maior nos resultados.
 
 \subsection{A busca tabu aplicada ao PCV}
+
+
+O algoritmo implementado aplica a busca tabu ao Problema do Caixeiro Viajante. O PCV, como já citado anteriormente, é um problema NP-Difícil, portanto é interessante, para aproximarmos os resultados, o uso de meta-heurísticas.
+
+A primeira parte a ser entendida é a solução inicial. Nesse projeto, a solução inicial foi obtida através da utilização da heurística do vizinho mais próximo para cada um dos vértices como inicial. Ou seja, utilizamos essa heurística $n$ vezes, e encontramos, dentre os resultados, o de menor custo.
+
+Após isso, temos a operação de vizinhança escolhida. Dada uma solução (representada por um vetor de inteiros - a sequencia de vértices do ciclo), ela consiste em realizar permutações de modo que, inicialmente, o primeiro nó troque com outro se a solução gerada tiver custo menor do que a solução original (da qual queremos gerar o conjunto de vizinhos). Sendo assim, ao iniciar a operação temos um nodo de troca ($V_k$) setado para o primeiro nó do ciclo inicial. A partir do momento em que ocorre essa troca, setamos o novo nodo de troca ($V_k$) para o que trocamos com o inicial. Esse ciclo de trocas é repetido $n$ vezes.
+
+O algoritmo da busca tabu em si, gera a vizinhança da solução inicial e, para cada vizinho gerado, gera-se a vizinhança deste, selecionando das $n$ vizinhanças, uma solução de menor custo.
+
+A lista tabu vai incluir os movimentos de troca, com seus respectivos vértices. Por exemplo, ao trocarmos o vértice 3 com o 8, teremos, na lista tabu, o vetor [3,8], simbolizando esse movimento, que não poderá ser repetido até a lista atingir o seu tamanho máximo, quando o primeiro elemento da lista é retirado para a adição de outro no fim desta.
