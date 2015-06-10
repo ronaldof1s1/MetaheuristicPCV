@@ -6,6 +6,7 @@
 package tsp.metaheuristic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -47,15 +48,16 @@ public class Metaheuristic
     return list.clone();
   }
   
-  ArrayList neighborhood(Integer[][] graph, Integer[] solution, ArrayList tabuTable, int tableSize)
+  ArrayList neighborhood(Integer[][] graph, ArrayList<Integer> solution, ArrayList tabuTable, int tableSize)
   {
-    ArrayList<Integer[]> neighborhood;
+    ArrayList<ArrayList<Integer>> neighborhood;
     neighborhood = new ArrayList<>();
     Printer P = new Printer();
-    Integer[] move, tempSol;
+    Integer[] move;
+    ArrayList<Integer> tempSol;
     Integer node = 0;
     boolean cont;
-    for(int i = 1; i < solution.length; i++)
+    for(int i = 1; i < solution.size(); i++)
     {
       move = new Integer[2];
       move[0] = node;
@@ -65,10 +67,7 @@ public class Metaheuristic
       if(!cont)
       {
         tempSol = swapNodes(solution.clone(), move[0], move[1]).clone();
-        //P.printCycle(tempSol);
-      
         neighborhood.add(tempSol.clone());
-        
         if(tabuTable.size() >= tableSize)
         {
           tabuTable.remove(0);
@@ -80,47 +79,35 @@ public class Metaheuristic
     return neighborhood;
   }
   
-  Integer objective(Integer[][] graph, Integer[] solution)
+  Integer objective(Integer[][] graph, ArrayList<Integer> solution)
   {
-    TSP t = new TSP();
-    Integer objective = t.cycleSize(graph, solution);
-    return objective;
+    int size = 0, n = solution.size()-1;
+    for (int i = 0; i < n; i++)
+    {
+      int x = solution.get(i);
+      int y = solution.get(i+1);
+      size += graph[x][y];
+    }
+    size += graph[solution.get(n)][0];
+    return size;
   }
   
   Integer[] buscaTabu(Integer tableSize, Integer[][] graph, Integer[] solution)
   {
-    ArrayList<Integer[]> table;
-    table = new ArrayList<>();
-    ArrayList<Integer[]> neighbors1, neighbors2;
+    ArrayList<Integer[]> tabuTable;
+    tabuTable = new ArrayList<>();
+    ArrayList< ArrayList< Integer > > neighbors;
     Printer P = new Printer();
-    Integer currObj, minObj;
-    
-    Integer[] bestSol;
-    bestSol = solution.clone();
+    int currObj, minObj;
+    ArrayList< Integer > currSol, bestSol;
+    currSol= new ArrayList<>(Arrays.asList(solution));
     //P.printCycle(bestSol);
-    currObj = objective(graph, solution);
+    bestSol = new ArrayList<>(currSol);
+    currObj = objective(graph, currSol);
     minObj = currObj;
-    for(int i = 0; i < solution.length; i++)
-    {      
-      neighbors1 = neighborhood(graph, bestSol.clone(), table, tableSize);
-      for (Integer[] neighbor1 : neighbors1)
-      {
-        //P.printCycle(neighbor1);
-        neighbors2 = neighborhood(graph, neighbor1.clone(), table, tableSize);
-        for(Integer[] neighbor2 : neighbors2)
-        {
-          currObj = objective(graph, neighbor2);
-          //System.out.println(currObj);
-          //P.printCycle(neighbor2);
-          if(currObj < minObj)
-          {
-            minObj = currObj;
-            bestSol = neighbor2.clone();
-            //System.out.println(minObj + "min obj");
-            //P.printCycle(bestSol);
-          }
-        }
-      }
+    while(true)
+    {
+      neighbors = neighborhood(graph, currSol, tabuTable, tableSize);
     }
     return bestSol;
   }
