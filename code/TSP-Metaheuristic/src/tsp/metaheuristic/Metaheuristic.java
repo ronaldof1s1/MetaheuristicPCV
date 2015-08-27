@@ -7,6 +7,7 @@ package tsp.metaheuristic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  *
@@ -14,51 +15,61 @@ import java.util.Arrays;
  */
 public class Metaheuristic
 {
-  int find(Integer[] list, int member)
-  {
-    for(int i = 0; i < list.length; i++)
-    {
-      if (list[i] == member)
-      {
-        return i;
-      }
-    }
-    return -1;
-  }
   Integer[] reverse(Integer[] list)
   {
-    Integer[] temp;
-    temp = new Integer[0];
-    for(int i = 0; i < list.length/2; i++)
+    if(list.length >2)
     {
-      temp = swapNodes(list, i, list.length - i);
+      System.out.println("DEU ERRO");
     }
-    return temp;
+    int temp = list[0];
+    list[0] = list[1];
+    list[1] = temp;
+    return list;
   }
-  Integer[] swapNodes(Integer[] list, int node1, int node2)
+  
+  ArrayList swapNodes3(ArrayList<Integer> list, int node1, int index2)
+  {
+    int index1 = list.indexOf(node1);
+    list.set(index1, list.get(index2));
+    list.set(index2, node1);
+    return list;
+  }
+  
+  ArrayList swapNodes2(ArrayList<Integer> list, int index1, int index2)
+  {
+    int nodeT = list.get(index1);
+    list.set(index1, list.get(index2));
+    list.set(index2, nodeT);
+    return list;
+  }
+  
+  ArrayList swapNodes(ArrayList<Integer> list, int node1, int node2)
   {
     Printer P = new Printer();
     
     //System.out.println(node2);
-    int index1 = find(list, node1);
-    int index2 = find(list, node2);
-    list[index1] = node2;
-    list[index2] = node1;
+    int index1 = list.indexOf(node1);
+    int index2 = list.indexOf(node2);
+    list.set(index1, node2);
+    list.set(index2, node1);
     
-    return list.clone();
+    return list;
   }
   
   ArrayList neighborhood(Integer[][] graph, ArrayList<Integer> solution, ArrayList tabuTable, int tableSize)
   {
     ArrayList<ArrayList<Integer>> neighborhood;
     neighborhood = new ArrayList<>();
+    neighborhood.add(solution);
     Printer P = new Printer();
     Integer[] move;
     ArrayList<Integer> tempSol;
     Integer node = 0;
     boolean cont;
+    Random R = new Random();
     for(int i = 1; i < solution.size(); i++)
     {
+      
       move = new Integer[2];
       move[0] = node;
       move[1] = i;
@@ -66,14 +77,18 @@ public class Metaheuristic
       cont = cont && tabuTable.contains(reverse(move));
       if(!cont)
       {
-        tempSol = swapNodes(solution.clone(), move[0], move[1]).clone();
-        neighborhood.add(tempSol.clone());
-        if(tabuTable.size() >= tableSize)
+        
+        //tempSol = new ArrayList<>(swapNodes((ArrayList<Integer>) solution.clone(), move[0], move[1])); 
+        tempSol = new ArrayList<>(swapNodes2((ArrayList<Integer>) solution.clone(), move[0], move[1])); 
+        //tempSol = new ArrayList<>(swapNodes3((ArrayList<Integer>) solution.clone(), move[0], move[1])); 
+        neighborhood.add(tempSol);
+        //P.printCycle(tempSol);
+        if(tabuTable.size() == tableSize)
         {
           tabuTable.remove(0);
         }
-        tabuTable.add(move.clone());
-        node = i;
+        node = R.nextInt(solution.size());
+        tabuTable.add(move);
       }
     }
     return neighborhood;
@@ -81,33 +96,60 @@ public class Metaheuristic
   
   Integer objective(Integer[][] graph, ArrayList<Integer> solution)
   {
-    int size = 0, n = solution.size()-1;
+    int size = 0;
+    int n = solution.size()-1;
+    int x, y;
     for (int i = 0; i < n; i++)
     {
-      int x = solution.get(i);
-      int y = solution.get(i+1);
+      x = solution.get(i);
+      y = solution.get(i + 1);
       size += graph[x][y];
     }
-    size += graph[solution.get(n)][0];
+    x = solution.get(solution.size() -1);
+    y = solution.get(0);
+    size += graph[x][y];
     return size;
   }
   
-  Integer[] buscaTabu(Integer tableSize, Integer[][] graph, Integer[] solution)
+  ArrayList buscaTabu(Integer tableSize, Integer[][] graph, Integer[] solution)
   {
     ArrayList<Integer[]> tabuTable;
     tabuTable = new ArrayList<>();
-    ArrayList< ArrayList< Integer > > neighbors;
+    ArrayList< ArrayList< Integer > > neighbors, neighbors1;
     Printer P = new Printer();
     int currObj, minObj;
-    ArrayList< Integer > currSol, bestSol;
-    currSol= new ArrayList<>(Arrays.asList(solution));
-    //P.printCycle(bestSol);
-    bestSol = new ArrayList<>(currSol);
-    currObj = objective(graph, currSol);
+    ArrayList< Integer > bestSol;
+    int index;
+    bestSol = new ArrayList<>(Arrays.asList(solution));
+    currObj = objective(graph, bestSol);
     minObj = currObj;
+    int chances = 5;
+    boolean solFound;
     while(true)
     {
-      neighbors = neighborhood(graph, currSol, tabuTable, tableSize);
+      solFound = false;
+      
+      neighbors1 = neighborhood(graph, bestSol, (ArrayList) tabuTable, tableSize);
+      for(ArrayList<Integer> neighbor: neighbors1)
+      {
+        neighbors = neighborhood(graph, neighbor, tabuTable, tableSize);
+
+        for (index = 0; index < neighbors.size(); index++)
+        {
+          currObj = objective(graph, neighbors.get(index));
+          if(currObj < minObj)
+          {
+            bestSol = neighbors.get(index);
+            solFound = true;
+            minObj = currObj;
+          }
+        }
+      }
+      if(!solFound)
+      {
+        break;
+        
+      }
     }
     return bestSol;
   }

@@ -1,25 +1,23 @@
-Os testes foram realizados com instâncias retiradas da $TSPLIB$. O algoritmo foi implementado em Java, em uma máquina Intel Core i7-4510U 2.0GHz, com 8GB de RAM. O sistema operacional no quais foram realizados os testes é um Fedora 22 de 64 bits.
+Os testes foram realizados com instâncias retiradas da $TSPLIB$\cite{TSPLIB}. O algoritmo foi implementado em Java, em uma máquina Intel Core i7-4510U 2.0GHz, com 8GB de RAM. O sistema operacional no quais foram realizados os testes é um Fedora 22 de 64 bits.
 
-A seguinte tabela apresenta a instância executada, o resultado exato da instância ($R_{exato}$), o resultado encontrado apenas com a heurística do vizinho mais próximo ($R_{heur}$), o resultado melhorado pela meta-heurística da busca tabu ($R_{tabu}$), a média do tempo de execução do algoritmo para 30 testes ($Media(T)$), e a variância do tempo ($Var(T)$).
+A seguinte tabela apresenta a instância executada, o resultado exato da instância ($R_{E}$), o resultado encontrado apenas com a heurística do vizinho mais próximo ($R_{G}$), a média dos resultados melhorados pela meta-heurística da busca tabu ($R_{H}$), a média do tempo de execução do algoritmo para 10 testes ($T_{exec}$), o nível de afastamento entre a solução exata e a heurística do vizinho mais próximo ($Afast_{E-G}$), a taxa de melhoramento, quando aplicamos a meta-heurística sobre a solução inicial ($mel_{G-H}$), O afastamento da solução exata para a solução com a busca tabu ($Afast_{E-H}$) e a amplitude dos resultados encontrados ($Amp$).
 
-Para os testes, foi assumido tamanho da tabela tabu igual a 5.
+Para os testes, foi assumido tamanho da tabela tabu igual a 100.
 \begin{table}[h]
-	
-	\centering
-	\begin{tabular}{|l|l|l|l|l|l|}
+	\hspace{-2cm}
+	\begin{tabular}{ | l | l | l | l | l | l | l | l | l | }
 		\hline
-		\textbf{instância} & $R_{exato}$ & $R_{heur}$ & $R_{tabu}$ & $Media(T)(ms)$ & $Var(T)$\\ 
-		\hline
-		eil51	& 460 		& 816 		& 718 	& 164.96	& 70.21			\\ \hline
-		a280 	& 2579 		& 4638 		& 3343 	& 62910.30 	& 1540674.42	\\ \hline
-		bier127 & 118282 	& 230110	& 220241& 2933.22	& 8177.80		\\ \hline 			
-		eil76 	& 583 		& 1064 		& 1021 	& 506.19 	& 300.93		\\ \hline
-		eil101 	& 629		& 1607 		& 1385 	& 1271.76	& 5464.36		\\ \hline
-		gil262 	& 2378 		& 7411 		& 7212 	& 45364.02	& 5675037.82	\\ \hline
-		kroA200 & 29368 	& 101065	& 98633	& 22620.81	& 4819397.50	\\ \hline
-		lin105 	& 14379 	& 28752 	& 26115	& 1477.28	& 40056.62		\\ 
-		\hline
-		
+		instancia & $R_{E}$ & $R_G$ & $R_H$ & $T_{exec}$ & $Afast_{E-G}$ & $mel_{G-H}$ & $Afast_{E-H}$ & $Amp$ \\ \hline
+		kroA200 & 29368 & 101065 & 61376.6 & 3861.7464 & 344.1330\% & 39.2701\% & 208.9914\% & 6833  \\ \hline
+		gil262 & 2378 & 7411 & 5007.6 & 8319.0839 & 311.6484\% & 32.4301\% & 47.4878\% & 590  \\ \hline
+		a280 & 2579 & 4638 & 4018.4 & 4576.9329 & 179.8371\% & 13.3592\% & 155.8123\% & 1023  \\ \hline
+		pr439 & 107217 & 253682 & 214716 & 47195.7521 & 236.6061\% & 15.3601\% & 200.2630\% & 18773 \\ \hline
+		rat575 & 6773 & 15978 & 12877.2 & 105020.7221 & 235.9072\% & 19.4066\% & 190.1254\% & 2368  \\ \hline
+		rat783 & 8806 & 22893 & 18479.33 & 539205.3763 & 259.9704\% & 19.2795\% & 209.8493\% & 453  \\ \hline
+		pr1002 & 259045 & 456475 & 418829 & 1486234.3756 & 176.2145\% & 8.2471\% & 161.6819\% & 53503  \\ \hline
 	\end{tabular}
+	
 	\caption{Resultados Computacionais}
 \end{table}
+
+Sendo assim, podemos perceber um melhoramento em torno de 20\% do resultado inicial, ao aplicarmos a busca tabu. As diferenças entre os resultados encontrados podem ser muito grandes.

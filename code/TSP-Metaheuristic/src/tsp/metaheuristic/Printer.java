@@ -5,6 +5,8 @@
  */
 package tsp.metaheuristic;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ronaldofs
@@ -30,9 +32,18 @@ public class Printer
   {
     for(int i = 0; i < cycle.length; i++)
     {
-      System.out.print("V" + cycle[i] +"->");
+      System.out.print(cycle[i] +"->");
     }
-    System.out.println("V"+cycle[0]);
+    System.out.println(cycle[0]);
   }
  
+  void printCycle(ArrayList<Integer> cycle)
+  {
+    
+    for(int i = 0; i < cycle.size(); i++)
+    {
+      System.out.print(cycle.get(i) +"->");
+    }
+    System.out.println(cycle.get(0));
+  }
 }

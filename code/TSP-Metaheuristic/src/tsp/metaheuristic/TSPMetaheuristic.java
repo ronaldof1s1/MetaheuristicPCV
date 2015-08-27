@@ -6,6 +6,8 @@
 package tsp.metaheuristic;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -39,22 +41,30 @@ public class TSPMetaheuristic
     fr = new MyFileReader();
     TSP tsp = new TSP();
     Metaheuristic M = new Metaheuristic();
-    Integer[] tabuSol;
+    ArrayList<Integer> tabuSol;
     Integer[][] graph;
     graph = fr.readFile("test/test.tsp");
     long start = System.nanoTime();
+    
     Integer[] initialCycle = tsp.findInitialSolution(graph);
-    tabuSol = M.buscaTabu(5, graph, initialCycle.clone());
+    System.out.println("size1: "+ tsp.cycleSize(graph, initialCycle));
+    tabuSol = M.buscaTabu(100, graph, initialCycle.clone());
     long end = System.nanoTime();
     double time = end - start;
     time /= 1000000;
     //P.printGraph(graph);
-    
+    /*long startInitial = System.nanoTime();
+    Integer[] initialCycle = tsp.findInitialSolution(graph);
+    long endInitial = System.nanoTime();
+    ArrayList<Integer> initialSolution;
+    initialSolution = new ArrayList<>(Arrays.asList(initialCycle));
+    long startTabu = System.nanoTime();
+    tabuSol = M.buscaTabu(100, graph, initialSolution);
+    long endTabu = System.nanoTime();*/
     //P.printCycle(initialCycle);
-    System.out.println("size1: "+tsp.cycleSize(graph, initialCycle));
     //P.printCycle(tabuSol);
-    System.out.println("size: "+ tsp.cycleSize(graph, tabuSol));
-    System.out.println("time: " + time);
+    System.out.println("size: "+ M.objective(graph, tabuSol));
+    System.out.println("time: " + time + " ms");
 
   }
 
